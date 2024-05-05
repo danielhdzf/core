@@ -3,7 +3,7 @@ name: Spring Core - Tests
 
 on:
   push:
-    branches: [ "master, develop" ]
+    branches: [ "develop, master" ]
 
 jobs:
   build:
