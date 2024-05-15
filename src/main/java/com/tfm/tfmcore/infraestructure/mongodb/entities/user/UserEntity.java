@@ -6,6 +6,7 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import com.tfm.tfmcore.domain.models.user.User;
 
@@ -17,7 +18,6 @@ import lombok.Data;
 @Builder
 @AllArgsConstructor
 @Document
-
 public class UserEntity {
     @Id
     private String id;
@@ -32,11 +32,13 @@ public class UserEntity {
     public UserEntity(User user) {
         BeanUtils.copyProperties(user, this);
         this.id = UUID.randomUUID().toString();
+        this.password = new BCryptPasswordEncoder().encode(this.password);
     }
 
     public User toUser() {
         User user = new User();
         BeanUtils.copyProperties(this, user);
+        user.setPassword("*********");
         return user;
     }
 

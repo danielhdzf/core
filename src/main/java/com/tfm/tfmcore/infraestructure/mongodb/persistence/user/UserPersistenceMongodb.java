@@ -1,5 +1,7 @@
 package com.tfm.tfmcore.infraestructure.mongodb.persistence.user;
 
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -9,16 +11,17 @@ import com.tfm.tfmcore.domain.models.user.User;
 import com.tfm.tfmcore.domain.persistence.user.UserPersistence;
 import com.tfm.tfmcore.infraestructure.mongodb.entities.user.UserEntity;
 import com.tfm.tfmcore.infraestructure.mongodb.repositories.user.UserRepository;
+import com.tfm.tfmcore.jwt.JwtUtil;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 @Repository
 public class UserPersistenceMongodb implements UserPersistence {
     
-    private final UserRepository userRepository;
+    @Autowired
+    UserRepository userRepository;
 
     @Autowired
-    public UserPersistenceMongodb(UserRepository userRepository) {
-        this.userRepository = userRepository;
-    }
+    JwtUtil jwtUtil;
 
 
     @Override
@@ -55,6 +58,16 @@ public class UserPersistenceMongodb implements UserPersistence {
     @Override
     public void delete(String username) {
         this.userRepository.deleteByUsername(username);
+    }
+
+    @Override
+    public Optional<String> login(String username, String password) {
+        UserEntity userEntity = this.userRepository.findByUsername(username)
+            .orElseThrow(() -> new NotFoundException("User with username " + username + " not found"));
+        if (new BCryptPasswordEncoder().matches(password, userEntity.getPassword())){
+            return Optional.of(jwtUtil.generateToken(username));
+        }
+        return Optional.empty();
     }
 
 }
