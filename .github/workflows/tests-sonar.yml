@@ -15,10 +15,16 @@ jobs:
     - uses: actions/setup-java@v1
       with:
         java-version: '17'
+    - name: Set up MongoDB
+      run: |
+        docker run --name mongo-instance -d -p 27017:27017 mongo:latest
+        sleep 15
     - name: Unit & Integration Tests
       run: mvn -B verify
       env:
-          JWT_SECRET: ${{ secrets.JWT_SECRET }}
+        JWT_SECRET: ${{ secrets.JWT_SECRET }}
+        SPRING_DATA_MONGODB_HOST: localhost
+        SPRING_DATA_MONGODB_PORT: 27017
     - name: Sonar
       if: success()
       run: >
