@@ -1,6 +1,5 @@
 package com.tfm.tfmcore.infrastructure.api.controllers;
 
-import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,7 +7,6 @@ import org.springframework.test.web.reactive.server.WebTestClient;
 
 import com.tfm.tfmcore.TestConfig;
 import com.tfm.tfmcore.domain.models.user.User;
-import com.tfm.tfmcore.domain.services.user.UserService;
 import com.tfm.tfmcore.infrastructure.api.RestClientTestService;
 
 import com.tfm.tfmcore.infraestructure.api.resources.UserController;
@@ -21,16 +19,6 @@ class UserControllerIT {
     private WebTestClient webTestClient;
     @Autowired
     private RestClientTestService restClientTestService;
-    @Autowired
-    private UserService userService;
-
-    @AfterAll
-    void cleanUp() {
-        this.userService.delete("test");
-        this.userService.delete("test_login");
-        this.userService.delete("test_read");
-        this.userService.delete("update");
-    }
 
     @Test
     void testSignUpAndDelete() {
