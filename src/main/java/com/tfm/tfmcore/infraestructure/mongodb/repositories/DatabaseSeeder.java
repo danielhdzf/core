@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.apache.logging.log4j.LogManager;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.tfm.tfmcore.infraestructure.mongodb.entities.user.*;
@@ -12,9 +13,10 @@ import com.tfm.tfmcore.infraestructure.mongodb.repositories.user.*;
 @Service
 public class DatabaseSeeder {
 
+    @Autowired
     private final UserRepository userRepository;
 
-    @Autowired
+    
     public DatabaseSeeder(UserRepository userRepository) {
         this.userRepository = userRepository;
         this.deleteAllAndSeed();
@@ -34,13 +36,13 @@ public class DatabaseSeeder {
         LogManager.getLogger(this.getClass()).warn("------- Initial Load Database -----------");
         UserEntity[] users = {
             UserEntity.builder().username("user1").email("user1@gmail.com")
-            .password("user1").build(),
+            .password(new BCryptPasswordEncoder().encode("user1")).build(),
             UserEntity.builder().username("user2").email("user2@gmail.com")
-            .password("user2").build(),
+            .password(new BCryptPasswordEncoder().encode("user2")).build(),
             UserEntity.builder().username("user3").email("user3@gmail.com")
-            .password("user3").build(),
+            .password(new BCryptPasswordEncoder().encode("user3")).build(),
             UserEntity.builder().username("user4").email("user4@gmail.com")
-            .password("user4").build(),
+            .password(new BCryptPasswordEncoder().encode("user4")).build(),
         };
         this.userRepository.saveAll(List.of(users));
     }

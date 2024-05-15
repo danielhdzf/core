@@ -3,7 +3,6 @@ package com.tfm.tfmcore.infraestructure.api.resources;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.prepost.PreAuthorize;
 
 import com.tfm.tfmcore.domain.models.user.User;
 import com.tfm.tfmcore.domain.services.user.UserService;
