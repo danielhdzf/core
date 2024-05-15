@@ -2,6 +2,7 @@ package com.tfm.tfmcore.infraestructure.mongodb.repositories;
 
 import java.util.List;
 
+import org.apache.logging.log4j.LogManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -30,6 +31,7 @@ public class DatabaseSeeder {
     }
  
     public void seed() {
+        LogManager.getLogger(this.getClass()).warn("------- Initial Load Database -----------");
         UserEntity[] users = {
             UserEntity.builder().username("user1").email("user1@gmail.com")
             .password("user1").build(),
