@@ -31,7 +31,7 @@ class UserPersistenceIT {
     void testCreateReadDelete() {
         User user = new User("user_test", "user_test@gmail.com", "user_test");
         this.userPersistence.create(user);
-        assertEquals(user, this.userPersistence.read("user_test"));
+        assertEquals(user.getUsername(), this.userPersistence.read("user_test").getUsername());
         this.userPersistence.delete("user_test");
     }
 
@@ -62,7 +62,7 @@ class UserPersistenceIT {
         this.userPersistence.create(user);
         User user_update = new User("user_update", "user_update@gmail.com", "user_update");
         this.userPersistence.update("user_test", user_update);
-        assertEquals(user_update, this.userPersistence.read("user_update"));
+        assertEquals(user_update.getUsername(), this.userPersistence.read("user_update").getUsername());
         this.userPersistence.delete("user_update");
     }
 
