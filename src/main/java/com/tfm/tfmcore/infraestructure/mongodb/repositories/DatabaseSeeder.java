@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.tfm.tfmcore.infraestructure.mongodb.entities.core.ScoreEntity;
 import com.tfm.tfmcore.infraestructure.mongodb.entities.user.*;
 import com.tfm.tfmcore.infraestructure.mongodb.repositories.user.*;
 
@@ -45,6 +46,11 @@ public class DatabaseSeeder {
             .password(new BCryptPasswordEncoder().encode("user4")).build(),
         };
         this.userRepository.saveAll(List.of(users));
+
+        ScoreEntity[] scores = {
+            ScoreEntity.builder().username("user1").score(100).game("game1").build(),
+            ScoreEntity.builder().username("user2").score(300).game("game1").build(),
+        };
     }
 
 }
