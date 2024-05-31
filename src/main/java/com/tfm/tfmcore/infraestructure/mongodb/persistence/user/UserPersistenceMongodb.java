@@ -7,6 +7,7 @@ import org.springframework.stereotype.Repository;
 
 import com.tfm.tfmcore.domain.exceptions.ConflictException;
 import com.tfm.tfmcore.domain.exceptions.NotFoundException;
+import com.tfm.tfmcore.domain.exceptions.UnauthorizedException;
 import com.tfm.tfmcore.domain.models.user.User;
 import com.tfm.tfmcore.domain.persistence.user.UserPersistence;
 import com.tfm.tfmcore.infraestructure.mongodb.entities.user.UserEntity;
@@ -67,7 +68,9 @@ public class UserPersistenceMongodb implements UserPersistence {
         if (new BCryptPasswordEncoder().matches(password, userEntity.getPassword())){
             return Optional.of(jwtUtil.generateToken(username));
         }
-        return Optional.empty();
+        else {
+            throw new UnauthorizedException(password + " is not the correct password");
+        }
     }
 
 }
