@@ -25,6 +25,9 @@ public class ScoreEntity {
     private LocalDateTime creationDate;
     private String game;
 
+    public ScoreEntity() {
+    }
+
     public ScoreEntity(Score score) {
         BeanUtils.copyProperties(score, this);
         this.creationDate = LocalDateTime.now();
