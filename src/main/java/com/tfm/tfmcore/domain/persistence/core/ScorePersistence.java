@@ -11,7 +11,9 @@ public interface ScorePersistence {
 
     Score create(Score score);
 
-    List<Score> readByUsername(String username);
+    List<Score> readTop5ByTimeGame(String game);
 
-    List<Score> readByUsernameAndGame(String username, String game);
+    List<Score> readTop5ByLevelGame(String game);
+
+    Double readAverageByGame(String game);
 }
