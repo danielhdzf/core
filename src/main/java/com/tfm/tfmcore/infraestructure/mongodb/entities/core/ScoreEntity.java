@@ -15,7 +15,7 @@ import lombok.Data;
 @Data
 @Builder
 @AllArgsConstructor
-@Document
+@Document(collection = "scores")
 public class ScoreEntity {
 
     @Id

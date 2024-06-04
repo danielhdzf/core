@@ -17,7 +17,7 @@ import lombok.Data;
 @Data
 @Builder
 @AllArgsConstructor
-@Document
+@Document(collection = "users")
 public class UserEntity {
     @Id
     private String id;
