@@ -29,7 +29,7 @@ public class StatsPersistenceMongodb implements StatsPersistence{
         List<Score> scores = userStats.getScores()
             .stream()
             .filter(score -> score.getGame().equals(game))
-            .sorted((a, b) -> b.getScore() + a.getScore())
+            .sorted((a, b) -> a.getScore() - b.getScore())
             .map(ScoreEntity::toScore)
             .toList();
         return Stats.builder()

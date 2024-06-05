@@ -59,7 +59,7 @@ public class ScorePersistenceMongodb implements ScorePersistence {
         return this.scoreRepository
             .findByGame(game)
             .stream()
-            .sorted((a, b) -> b.getScore() + a.getScore())
+            .sorted((a, b) -> a.getScore() - b.getScore())
             .limit(5)
             .map(ScoreEntity::toScore)
             .toList();

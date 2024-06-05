@@ -69,6 +69,11 @@ public class DatabaseSeeder {
             ScoreEntity.builder().username("user3").score(200).game("game_test").build(),
             ScoreEntity.builder().username("user4").score(100).game("game_test").build(),
             ScoreEntity.builder().username("user4").score(200).game("game_test").build(),
+            ScoreEntity.builder().username("user1").score(432).game("reactionTime").build(),
+            ScoreEntity.builder().username("user2").score(132).game("reactionTime").build(),
+            ScoreEntity.builder().username("user3").score(56).game("reactionTime").build(),
+            ScoreEntity.builder().username("user4").score(43).game("reactionTime").build(),
+            ScoreEntity.builder().username("user4").score(231).game("reactionTime").build(),
         };
         this.scoreRepository.saveAll(List.of(scores));
 
