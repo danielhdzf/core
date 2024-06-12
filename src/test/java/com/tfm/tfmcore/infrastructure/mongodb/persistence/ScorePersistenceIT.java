@@ -27,7 +27,7 @@ class ScorePersistenceIT {
 
     @Test
     void testCreate() {
-        Score score = new Score("user4", 100, "game_test");
+        Score score = new Score("user4", 100, "test");
         Score created = this.scorePersistence.create(score);
         assertEquals(score, created);
     }
