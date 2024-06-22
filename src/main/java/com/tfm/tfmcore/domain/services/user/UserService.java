@@ -29,6 +29,10 @@ public class UserService {
         return this.userPersistence.read(username);
     }
 
+    public void updatePassword(String username, String password, String newPassword) {
+        this.userPersistence.updatePassword(username, password, newPassword);
+    }
+
     public Optional<String> login(String username, String password) {
         return this.userPersistence.login(username, password);
     }

@@ -3,7 +3,6 @@ package com.tfm.tfmcore.infraestructure.mongodb.entities.core;
 import java.util.List;
 
 import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import com.tfm.tfmcore.domain.models.core.Score;

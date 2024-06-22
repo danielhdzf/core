@@ -70,6 +70,13 @@ class UserPersistenceIT {
     }
 
     @Test
+    void testUpdatePassword() {
+        this.userPersistence.updatePassword("user_test", "user_test", "new_password");
+        assertNotNull(this.userPersistence.login("user_test", "new_password").get());
+        this.userPersistence.updatePassword("user_test", "new_password", "user_test");
+    }
+
+    @Test
     void testLogin() {
         assertNotNull(this.userPersistence.login("user_test", "user_test").get());
     }

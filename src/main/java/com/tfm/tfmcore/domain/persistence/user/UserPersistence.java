@@ -17,5 +17,7 @@ public interface UserPersistence {
 
     void delete(String username);
 
+    void updatePassword(String username, String password, String newPassword);
+
     Optional<String> login(String username, String password);
 }

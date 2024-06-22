@@ -71,6 +71,13 @@ class UserServiceIT {
     }
 
     @Test
+    void testUpdatePassword() {
+        this.userService.updatePassword("user_test", "user_test", "new_password");
+        assertNotNull(this.userService.login("user_test", "new_password").get());
+        this.userService.updatePassword("user_test", "new_password", "user_test");
+    }
+
+    @Test
     void testLogin() {
         assertNotNull(this.userService.login("user_test", "user_test").get());
     }

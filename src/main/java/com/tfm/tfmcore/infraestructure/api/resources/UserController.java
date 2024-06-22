@@ -22,13 +22,11 @@ public class UserController {
     public static final String USER_USERNAME = "/{username}";
     public static final String USER_SIGNUP = "/signup";
     public static final String USER_LOGIN = "/login";
-
-    private final UserService userService;
+    public static final String USER_UPDATE_PASSWORD = "/updatePassword";
 
     @Autowired
-    UserController(UserService userService) {
-        this.userService = userService;
-    }
+    UserService userService;
+        
 
     @PostMapping(USER_SIGNUP)
     public User signUp(@Valid @RequestBody User user) {
@@ -51,6 +49,12 @@ public class UserController {
     @GetMapping(USER_USERNAME)
     public User read(@PathVariable String username) {
         return this.userService.readByUsername(username);
+    }
+
+    @SecurityRequirement(name = "bearerAuth")
+    @PutMapping(USER_UPDATE_PASSWORD)
+    public void updatePassword(@RequestParam String username, @RequestParam String password, @RequestParam String new_password) {
+        this.userService.updatePassword(username, password, new_password);
     }
 
     @GetMapping(USER_LOGIN)

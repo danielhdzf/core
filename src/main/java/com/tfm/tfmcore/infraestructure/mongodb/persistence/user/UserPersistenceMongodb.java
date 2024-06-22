@@ -62,6 +62,19 @@ public class UserPersistenceMongodb implements UserPersistence {
     }
 
     @Override
+    public void updatePassword(String username, String password, String newPassword) {
+        UserEntity userEntity = this.userRepository.findByUsername(username)
+            .orElseThrow(() -> new NotFoundException("User with username " + username + " not found"));
+        if (new BCryptPasswordEncoder().matches(password, userEntity.getPassword())) {
+            userEntity.setPassword(new BCryptPasswordEncoder().encode(newPassword));
+            this.userRepository.save(userEntity);
+        }
+        else {
+            throw new UnauthorizedException(password + " is not the correct password");
+        }
+    }
+
+    @Override
     public Optional<String> login(String username, String password) {
         UserEntity userEntity = this.userRepository.findByUsername(username)
             .orElseThrow(() -> new NotFoundException("User with username " + username + " not found"));
