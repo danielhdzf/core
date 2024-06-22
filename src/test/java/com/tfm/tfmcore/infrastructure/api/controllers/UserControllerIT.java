@@ -133,4 +133,40 @@ class UserControllerIT {
                 Assertions.assertEquals(updatedUser.getEmail(), returnedUser.getEmail());
             });
     }
+
+    @Test
+    void testUpdatePassword() {
+        User user = User.builder()
+            .username("test_update_password")
+            .email("test_update_password")
+            .password("test_update_password")
+            .build();
+        this.webTestClient
+            .post()
+            .uri(UserController.USERS + UserController.USER_SIGNUP)
+            .bodyValue(user)
+            .exchange()
+            .expectStatus().isOk();
+        this.restClientTestService.setToken(user.getUsername());
+        this.restClientTestService.login(this.webTestClient)
+            .put()
+            .uri(uriBuilder -> uriBuilder
+                .path(UserController.USERS + UserController.USER_UPDATE_PASSWORD)
+                .queryParam("username", user.getUsername())
+                .queryParam("password", user.getPassword())
+                .queryParam("new_password", "new_password")
+                .build())
+            .exchange()
+            .expectStatus().isOk();
+        this.restClientTestService.login(this.webTestClient)
+            .put()
+            .uri(uriBuilder -> uriBuilder
+                .path(UserController.USERS + UserController.USER_UPDATE_PASSWORD)
+                .queryParam("username", user.getUsername())
+                .queryParam("password", "new_password")
+                .queryParam("new_password", user.getPassword())
+                .build())
+            .exchange()
+            .expectStatus().isOk();
+    }
 }
