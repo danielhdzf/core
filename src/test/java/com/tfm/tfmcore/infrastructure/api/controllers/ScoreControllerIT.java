@@ -31,12 +31,12 @@ class ScoreControllerIT {
     static void beforeAll() {
         score1 = Score.builder()
             .username(user)
-            .game("test")
+            .game("testScoreController")
             .score(100)
             .build();
         score2 = Score.builder()
             .username(user)
-            .game("test")
+            .game("testScoreController")
             .score(300)
             .build();
     }
@@ -80,7 +80,7 @@ class ScoreControllerIT {
         this.restClientTestService.setToken(ScoreControllerIT.user);
         this.restClientTestService.login(this.webTestClient)
             .get()
-            .uri(ScoreController.SCORES + ScoreController.SCORE_TIME + "?game=test")
+            .uri(ScoreController.SCORES + ScoreController.SCORE_TIME + "?game=testScoreController")
             .exchange()
             .expectStatus().isOk()
             .expectBodyList(Score.class)
@@ -98,7 +98,7 @@ class ScoreControllerIT {
         this.restClientTestService.setToken(ScoreControllerIT.user);
         this.restClientTestService.login(this.webTestClient)
             .get()
-            .uri(ScoreController.SCORES + ScoreController.SCORE_LEVEL + "?game=test")
+            .uri(ScoreController.SCORES + ScoreController.SCORE_LEVEL + "?game=testScoreController")
             .exchange()
             .expectStatus().isOk()
             .expectBodyList(Score.class)
@@ -116,7 +116,7 @@ class ScoreControllerIT {
         this.restClientTestService.setToken(ScoreControllerIT.user);
         this.restClientTestService.login(this.webTestClient)
             .get()
-            .uri(ScoreController.SCORES + ScoreController.SCORE_AVERAGE + "?game=test")
+            .uri(ScoreController.SCORES + ScoreController.SCORE_AVERAGE + "?game=testScoreController")
             .exchange()
             .expectStatus().isOk()
             .expectBody(Double.class)
