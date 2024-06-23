@@ -6,6 +6,7 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import com.tfm.tfmcore.configuration.Generated;
 import com.tfm.tfmcore.domain.models.core.Score;
 
 import lombok.AllArgsConstructor;
@@ -15,6 +16,7 @@ import lombok.Data;
 @Data
 @Builder
 @AllArgsConstructor
+@Generated
 @Document(collection = "scores")
 public class ScoreEntity {
 

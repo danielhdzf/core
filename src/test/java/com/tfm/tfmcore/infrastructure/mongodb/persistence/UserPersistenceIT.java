@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.tfm.tfmcore.TestConfig;
 import com.tfm.tfmcore.domain.exceptions.ConflictException;
 import com.tfm.tfmcore.domain.exceptions.NotFoundException;
+import com.tfm.tfmcore.domain.exceptions.UnauthorizedException;
 import com.tfm.tfmcore.domain.models.user.User;
 import com.tfm.tfmcore.domain.persistence.user.UserPersistence;
 
@@ -74,6 +75,16 @@ class UserPersistenceIT {
         this.userPersistence.updatePassword("user_test", "user_test", "new_password");
         assertNotNull(this.userPersistence.login("user_test", "new_password").get());
         this.userPersistence.updatePassword("user_test", "new_password", "user_test");
+    }
+
+    @Test
+    void testUpdatePasswordNotFound() {
+        assertThrows(NotFoundException.class, () -> this.userPersistence.updatePassword("not_found", "password", "new_password"));
+    }
+
+    @Test
+    void testUpdatePasswordUnauthorized() {
+        assertThrows(UnauthorizedException.class, () -> this.userPersistence.updatePassword("user_test", "unauthorize", "new_password"));
     }
 
     @Test
