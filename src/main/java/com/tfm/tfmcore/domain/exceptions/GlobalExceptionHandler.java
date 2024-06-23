@@ -21,12 +21,6 @@ public class GlobalExceptionHandler {
         return new ErrorResponseException(HttpStatus.NOT_FOUND, problemDetail, null);
     }
 
-    @ExceptionHandler(BadRequestException.class)
-    public ErrorResponseException handleBadRequestException(BadRequestException ex) {
-        ProblemDetail problemDetail = ProblemDetail.forStatusAndDetail(HttpStatus.BAD_REQUEST, ex.getMessage());
-        return new ErrorResponseException(HttpStatus.BAD_REQUEST, problemDetail, null);
-    }
-
     @ExceptionHandler(UnauthorizedException.class)
     public ErrorResponseException handleUnauthorizedException(UnauthorizedException ex) {
         ProblemDetail problemDetail = ProblemDetail.forStatusAndDetail(HttpStatus.UNAUTHORIZED, ex.getMessage());

@@ -5,7 +5,7 @@ import java.util.List;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-import com.tfm.tfmcore.domain.models.core.Score;
+import com.tfm.tfmcore.configuration.Generated;
 import com.tfm.tfmcore.domain.models.core.Stats;
 
 import lombok.AllArgsConstructor;
@@ -15,6 +15,7 @@ import lombok.Data;
 @Data
 @Builder
 @AllArgsConstructor
+@Generated
 @Document(collection = "stats")
 public class StatsEntity {
     @Id
@@ -29,13 +30,4 @@ public class StatsEntity {
         this.username = stats.getUsername();
         this.scores = stats.getScores().stream().map(ScoreEntity::new).toList();
     }
-
-    public Stats toStats() {
-        Stats stats = new Stats();
-        List<Score> scoreList = this.scores.stream().map(ScoreEntity::toScore).toList();
-        stats.setUsername(this.username);
-        stats.setScores(scoreList);
-        return stats;
-    }
-
 }
